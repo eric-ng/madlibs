@@ -37,8 +37,24 @@ header .logo .tag {
 }
 
 .container {
-	padding: 30px;
+	padding: 30px 70px;
 }
 .output-container > div {
 	margin-bottom: 20px;
+}
+.output-container > div .variable {
+	font-family: garamond;
+	text-decoration: underline;
+}
+.input-container .table-container table {
+	width: 100%;
+	text-align: center;
+}
+.input-container .table-container table td {
+	padding: 3px 4px;
+}
+.input-container .table-container table td input {
+	padding: 5px 8px;
+	text-align: center;
+	width: calc;
 }
