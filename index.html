@@ -21,40 +21,47 @@
 	</header>
 	<div ng-controller="mainCtrl">
 		<div class="container input-container">
+			<div>
+				<select ng-model="selectedGender">
+					<option ng-repeat="gender in genders" ng-value="gender.val" ng-selected="gender.val == 0">
+						{{gender.label}}
+					</option>
+				</select>
+			</div>
 			<h1>Provide the following words</h1>
 			<div class="table-container">
 				<table>
 					<tr>
 						<td>
-							<input ng-model="femaleName"/>
+							<input ng-model="name" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}"/>
 						</td>
 						<td>
-							<input ng-model="jobTitle"/>
+							<input ng-model="jobTitle" ng-disabled="selectedGender == 0"/>
 						</td>
 						<td>
-							<input ng-model="tediousTask"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input ng-model="dirtyTask"/>
-						</td>
-						<td>
-							<input ng-model="celebrity"/>
-						</td>
-						<td>
-							<input ng-model="uselessSkill"/>
+							<input ng-model="tediousTask" ng-disabled="selectedGender == 0"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input ng-model="adjective"/>
+							<input ng-model="dirtyTask" ng-disabled="selectedGender == 0"/>
 						</td>
 						<td>
-							<input ng-model="obnoxiousCelebrity"/>
+							<input ng-model="celebrity" ng-disabled="selectedGender == 0"/>
 						</td>
 						<td>
-							<input ng-model="hugeNumber"/>
+							<input ng-model="uselessSkill" ng-disabled="selectedGender == 0"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input ng-model="adjective" ng-disabled="selectedGender == 0"/>
+						</td>
+						<td>
+							<input ng-model="obnoxiousCelebrity" ng-disabled="selectedGender == 0"/>
+						</td>
+						<td>
+							<input ng-model="hugeNumber" ng-disabled="selectedGender == 0"/>
 						</td>
 					</tr>
 				</table>
@@ -62,11 +69,11 @@
 		</div>
 		<div class="container output-container">
 			<div>
-				<span class="variable">{{femaleName}}</span> was a <span class="variable">{{jobTitle}}</span> who loved technology. Although she loved parts of her job, she absolutely hated	<span class="variable">{{tediousTask}}</span> and <span class="variable">{{dirtyTask}}</span>. So, <span class="variable">{{femaleName}}</span> met with her life mentor <span class="variable">{{celebrity}}</span> who told her to learn how to <span class="variable">{{uselessSkill}}</span> with Thinkful. Thinkful didn't offer a course on <span class="variable">{{uselessSkill}}</span> so she studied programming instead. 
+				<span class="variable" ng-bind="name()"></span> was a <span class="variable">{{jobTitle}}</span> who loved technology. Although <span class="" ng-bind="subject()"></span> loved parts of <span class="" ng-bind="possession()"></span> job, <span class="" ng-bind="subject()"></span> absolutely hated <span class="variable">{{tediousTask}}</span> and <span class="variable">{{dirtyTask}}</span>. So, <span class="variable" ng-bind="name()"></span> met with <span class="" ng-bind="possession()"></span> life mentor <span class="variable">{{celebrity}}</span> who told <span class="" ng-bind="object()"></span> to learn how to <span class="variable">{{uselessSkill}}</span> with Thinkful. Thinkful didn't offer a course on <span class="variable">{{uselessSkill}}</span> so <span class="" ng-bind="subject()"></span> studied programming instead. 
 	    	</div>
 	 
 	 		<div>
-				What a great decision! With her new skills, <span class="variable">{{femaleName}}</span> built a(n) <span class="variable">{{adjective}}</span> robot named <span class="variable">{{obnoxiousCelebrity}}</span> that not only loved <span class="variable">{{dirtyTask}}</span> but did it <span class="variable">{{hugeNumber}}</span> faster. 
+				What a great decision! With <span class="" ng-bind="possession()"></span> new skills, <span class="variable" ng-bind="name()"></span> built a(n) <span class="variable">{{adjective}}</span> robot named <span class="variable">{{obnoxiousCelebrity}}</span> that not only loved <span class="variable">{{dirtyTask}}</span> but did it <span class="variable">{{hugeNumber}}</span> faster. 
 			</div>
 		</div>
 	</div>
