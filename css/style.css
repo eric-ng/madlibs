@@ -58,3 +58,33 @@ header .logo .tag {
 	text-align: center;
 	width: calc;
 }
+.gender-container {
+	padding: 50px 70px 0px 70px;
+}
+
+.error-container {
+	background: #FFDDDD;
+	border-radius: 15px;
+	border: 2px solid #886666;
+	padding: 20px 33px;
+	color: #886666;
+}
+
+.action-buttons {
+	padding-top: 40px;
+	text-align: right;
+}
+.action-buttons button, .action-buttons button:hover, .action-buttons button:active {
+	background: #40A0DF;
+	padding: 20px 38px;
+	color: #E0E0E0;
+	border: 0px;
+	font-size: 20px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 10px #222;
+	cursor: pointer;
+	outline: none;
+}
+.action-buttons button.disabled {
+	background: #D0D0D0;
+}

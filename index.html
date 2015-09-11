@@ -20,60 +20,82 @@
 		</div>
 	</header>
 	<div ng-controller="mainCtrl">
-		<div class="container input-container">
-			<div>
-				<select ng-model="selectedGender">
-					<option ng-repeat="gender in genders" ng-value="gender.val" ng-selected="gender.val == 0">
-						{{gender.label}}
-					</option>
-				</select>
-			</div>
-			<h1>Provide the following words</h1>
-			<div class="table-container">
-				<table>
-					<tr>
-						<td>
-							<input ng-model="name" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}"/>
-						</td>
-						<td>
-							<input ng-model="jobTitle" ng-disabled="selectedGender == 0"/>
-						</td>
-						<td>
-							<input ng-model="tediousTask" ng-disabled="selectedGender == 0"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input ng-model="dirtyTask" ng-disabled="selectedGender == 0"/>
-						</td>
-						<td>
-							<input ng-model="celebrity" ng-disabled="selectedGender == 0"/>
-						</td>
-						<td>
-							<input ng-model="uselessSkill" ng-disabled="selectedGender == 0"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input ng-model="adjective" ng-disabled="selectedGender == 0"/>
-						</td>
-						<td>
-							<input ng-model="obnoxiousCelebrity" ng-disabled="selectedGender == 0"/>
-						</td>
-						<td>
-							<input ng-model="hugeNumber" ng-disabled="selectedGender == 0"/>
-						</td>
-					</tr>
-				</table>
-			</div>
+		<div class="container gender-container" ng-show="!submitted">
+			<select ng-model="selectedGender" ng-change="updatePlaceholder();" ng-options="gender.val as gender.label for gender in genders">
+			</select>
 		</div>
-		<div class="container output-container">
+		<div class="container input-container" ng-if="!submitted">
+			<form name="madlibsForm" ng-submit="generateMadlibs();">
+				<h1>Provide the following words</h1>
+				<div class="table-container">
+					<table>
+						<tr>
+							<td>
+								<input ng-model="name" name="name" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="{{namePlaceholder}}"/>
+							</td>
+							<td>
+								<input ng-model="jobTitle" name="jobTitle" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="job title"/>
+							</td>
+							<td>
+								<input ng-model="tediousTask" name="tediousTask" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="tedious task"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input ng-model="dirtyTask" name="dirtyTask" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="dirty task"/>
+							</td>
+							<td>
+								<input ng-model="celebrity" name="celebrity" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="celebrity"/>
+							</td>
+							<td>
+								<input ng-model="uselessSkill" name="uselessSkill" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="useless skill"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input ng-model="adjective" name="adjective" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="adjective"/>
+							</td>
+							<td>
+								<input ng-model="obnoxiousCelebrity" name="obnoxiousCelebrity" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="obnovious celebrity"/>
+							</td>
+							<td>
+								<input ng-model="hugeNumber" name="hugeNumber" ng-disabled="selectedGender == 0" ng-model-options="{getterSetter: true}" required placeholder="huge number" ng-pattern="numberMatching"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="error-container" ng-if="madlibsForm.$submitted && madlibsForm.$error">
+					<ul>
+						<li ng-repeat="(key, val) in madlibsForm.$error">
+							<b>{{key | uppercase}}</b>
+							<ul>
+								<li ng-repeat="error in val">
+									{{error.$name}}
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="action-buttons">
+					<button ng-disabled="madlibsForm.$invalid" ng-class="{'disabled': madlibsForm.$invalid}">
+						Generate My Mad Libs
+					</button>
+				</div>
+			</form>
+		</div>
+		<div class="container output-container" ng-if="submitted">
 			<div>
-				<span class="variable" ng-bind="name()"></span> was a <span class="variable">{{jobTitle}}</span> who loved technology. Although <span class="" ng-bind="subject()"></span> loved parts of <span class="" ng-bind="possession()"></span> job, <span class="" ng-bind="subject()"></span> absolutely hated <span class="variable">{{tediousTask}}</span> and <span class="variable">{{dirtyTask}}</span>. So, <span class="variable" ng-bind="name()"></span> met with <span class="" ng-bind="possession()"></span> life mentor <span class="variable">{{celebrity}}</span> who told <span class="" ng-bind="object()"></span> to learn how to <span class="variable">{{uselessSkill}}</span> with Thinkful. Thinkful didn't offer a course on <span class="variable">{{uselessSkill}}</span> so <span class="" ng-bind="subject()"></span> studied programming instead. 
+				<span class="variable" ng-bind="name()"></span> was a <span class="variable" ng-bind="jobTitle()"></span> who loved technology. Although <span class="" ng-bind="subject()"></span> loved parts of <span class="" ng-bind="possession()"></span> job, <span class="" ng-bind="subject()"></span> absolutely hated <span class="variable" ng-bind="tediousTask()"></span> and <span class="variable" ng-bind="dirtyTask()"></span>. So, <span class="variable" ng-bind="name()"></span> met with <span class="" ng-bind="possession()"></span> life mentor <span class="variable" ng-bind="celebrity()"></span> who told <span class="" ng-bind="object()"></span> to learn how to <span class="variable" ng-bind="uselessSkill()"></span> with Thinkful. Thinkful didn't offer a course on <span class="variable" ng-bind="uselessSkill()"></span> so <span class="" ng-bind="subject()"></span> studied programming instead. 
 	    	</div>
 	 
 	 		<div>
-				What a great decision! With <span class="" ng-bind="possession()"></span> new skills, <span class="variable" ng-bind="name()"></span> built a(n) <span class="variable">{{adjective}}</span> robot named <span class="variable">{{obnoxiousCelebrity}}</span> that not only loved <span class="variable">{{dirtyTask}}</span> but did it <span class="variable">{{hugeNumber}}</span> faster. 
+				What a great decision! With <span class="" ng-bind="possession()"></span> new skills, <span class="variable" ng-bind="name()"></span> built a(n) <span class="variable" ng-bind="adjective()"></span> robot named <span class="variable" ng-bind="obnoxiousCelebrity()"></span> that not only loved <span class="variable" ng-bind="dirtyTask()"></span> but did it <span class="variable" ng-bind="hugeNumber()"></span> faster. 
+			</div>
+
+			<div class="action-buttons">
+				<button ng-click="startOver();">
+					Start Over
+				</button>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,7 @@
 angular.module('madlibs', [])
 .controller('mainCtrl', function($scope) {
+	$scope.submitted = false;
+
 	$scope.genders = [
 		{label: 'Select gender', val: 0},
 		{label: 'male', val: 1},
@@ -7,7 +9,7 @@ angular.module('madlibs', [])
 	];
 	$scope.genderSpecifics = [
 		{ // default
-			name: 'madlibs',
+			name: '',
 			subject: 'it',
 			possession: 'its',
 			object: 'it'
@@ -29,12 +31,42 @@ angular.module('madlibs', [])
 
 	// variables for content
 	var _name = '';
+	var _jobTitle = '';
+	var _tediousTask = '';
+	var _celebrity = '';
+	var _uselessSkill = '';
+	var _adjective = '';
+	var _obnoxiousCelebrity = '';
+	var _dirtyTask = '';
+	var _hugeNumber = '';
 	$scope.name = function (newVal) {
-		return arguments.length ? (_name = newVal) : 
-			(_name.length ? _name : 
-				($scope.selectedGender === 0 ? '{{name}}' : '{{' + $scope.genderSpecifics[$scope.selectedGender].name + ' name}}')
-			);
+		return arguments.length ? (_name = newVal) : _name;
 	}
+	$scope.jobTitle = function (newVal) {
+		return arguments.length ? (_jobTitle = newVal) : _jobTitle;
+	}
+	$scope.tediousTask = function (newVal) {
+		return arguments.length ? (_tediousTask = newVal) : _tediousTask;
+	}
+	$scope.celebrity = function (newVal) {
+		return arguments.length ? (_celebrity = newVal) : _celebrity;
+	}
+	$scope.uselessSkill = function (newVal) {
+		return arguments.length ? (_uselessSkill = newVal) : _uselessSkill;
+	}
+	$scope.adjective = function (newVal) {
+		return arguments.length ? (_adjective = newVal) : _adjective;
+	}
+	$scope.obnoxiousCelebrity = function (newVal) {
+		return arguments.length ? (_obnoxiousCelebrity = newVal) : _obnoxiousCelebrity;
+	}
+	$scope.dirtyTask = function (newVal) {
+		return arguments.length ? (_dirtyTask = newVal) : _dirtyTask;
+	}
+	$scope.hugeNumber = function (newVal) {
+		return arguments.length ? (_hugeNumber = newVal) : _hugeNumber;
+	}
+
 	$scope.subject = function () {
 		return $scope.genderSpecifics[$scope.selectedGender].subject;
 	}
@@ -44,12 +76,29 @@ angular.module('madlibs', [])
 	$scope.object = function () {
 		return $scope.genderSpecifics[$scope.selectedGender].object;
 	}
-	$scope.jobTitle = '{{job title}}';
-	$scope.tediousTask = '{{tedious task}}';
-	$scope.celebrity = '{{celebrity}}';
-	$scope.uselessSkill = '{{useless skill}}';
-	$scope.adjective = '{{adjective}}';
-	$scope.obnoxiousCelebrity = '{{obnoxious celebrity}}';
-	$scope.dirtyTask = '{{dirty task}}';
-	$scope.hugeNumber = '{{huge number}}';
+
+	$scope.updatePlaceholder = function () {
+		$scope.namePlaceholder = $scope.genderSpecifics[$scope.selectedGender].name + ' name';
+	};
+
+	// handler for generate button
+	$scope.generateMadlibs = function () {
+		$scope.submitted = true;
+	};
+
+	// handler for start over button
+	$scope.startOver = function () {
+		$scope.submitted = false;
+		$scope.name('');
+		$scope.jobTitle('');
+		$scope.tediousTask('');
+		$scope.celebrity('');
+		$scope.obnoxiousCelebrity('');
+		$scope.dirtyTask('');
+		$scope.hugeNumber('');
+		$scope.uselessSkill('');
+		$scope.adjective('');
+	};
+
+	$scope.numberMatching = new RegExp('^[0-9]*$');
 });
