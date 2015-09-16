@@ -1,4 +1,6 @@
-angular.module('madlibs', [])
+angular.module('madlibs', [
+	'ngAnimate'
+])
 .controller('mainCtrl', function($scope) {
 	$scope.submitted = false;
 

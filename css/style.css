@@ -7,6 +7,9 @@ body {
 	margin: 0 auto;
 	width: 1024px;
 }
+body > div {
+	position: relative;
+}
 
 header {
 	font-size: 0;
@@ -38,6 +41,13 @@ header .logo .tag {
 
 .container {
 	padding: 30px 70px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.output-container, .input-container {
+	top: 70px;
 }
 .output-container > div {
 	margin-bottom: 20px;
@@ -58,6 +68,28 @@ header .logo .tag {
 	text-align: center;
 	width: calc;
 }
+/*** animations ***/
+.container {
+	-webkit-transition: 1s linear all;
+	-moz-transition: 1s linear all;
+	-o-transition: 1s linear all;
+	transition: 1s linear all;
+}
+.container.ng-enter {
+	opacity: 0;
+}
+.container.ng-enter.ng-enter-active {
+	opacity: 1;
+}
+.container.ng-leave {
+	opacity: 1;
+}
+.container.ng-leave.ng-leave-active {
+	opacity: 0;
+}
+
+
+
 .gender-container {
 	padding: 50px 70px 0px 70px;
 }
